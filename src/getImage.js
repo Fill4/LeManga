@@ -14,7 +14,7 @@ function readFullChapter() {
 	});
 }
 
-// If readFullChapter returns successfull, updates the extension with a image from the chapter
+// If readFullChapter returns successful, updates the extension with a image from the chapter
 function setImage(imageURL) {
 	try {
 		var imageResult = document.getElementById("image-result");
