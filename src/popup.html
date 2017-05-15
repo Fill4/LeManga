@@ -7,23 +7,20 @@
 		<link rel="stylesheet" type="text/css" href="styles/semantic/semantic.css">
 		<script src="jquery.js"></script>
 		<script src="styles/semantic/semantic.js"></script> 
-		<script src="getImage.js"></script>
+		<script src="popup.js"></script>
 
 	</head>
 	<body>
-		<h1 class="ui header" style="text-align:center"> Le Manga </h1>
+		<div id='title'>
+			<h3 class="ui header"> Le Manga </h3>
+			<span id='version'> 0.0.1 </span>
 
-		<div style="text-align:center">
-			<button class="ui secondary button" id="getImageButton">Read Full Chapter</button>
+			<div class="ui divider"></div>
+
+			<div class="ui message">
+				
+			</div>
 		</div>
-
-		<div class="ui divider"></div>
-
-		<div class="ui message">
-			<h2 class ="header">Status</h2>
-			<p id='statusText'></p>
-		</div>
-		
 		<img id="image-result" hidden>
 	</body>
 </html>

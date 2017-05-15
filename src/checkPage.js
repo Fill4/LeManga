@@ -4,8 +4,8 @@
 	chrome.runtime.sendMessage({action: "matchURL", url: window.location.href }, function(response) {
 		if(response.isTrue) {
 			$(document).ready(function() {
-				getListImages(window.location.href, function(listImages) {
-					changeImages(listImages);
+				MangaStream.getListImages(window.location.href, function(listImages) {
+					MangaStream.changeImages(listImages);
 				});
 			});
 		}; //else {
