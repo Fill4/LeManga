@@ -17,11 +17,34 @@ function getListImages(currentURL, callback) {
 	});
 }
 
-function changeImage(listImages) {
+function changeImages(listImages) {
+	// Clear main body element
+	var $mainElement = $('.row-fluid')[0];
+	$($mainElement).empty();
+	$($mainElement).attr('style', 'background-color: #161616;');
+	// Create basic element for image
+	var $imgContainer = $('<div>', {"class": "ui container"});
+	var $imgElement = $('<img>', {"class": "ui fluid image"});
+	var $imgSpacing = $('<h3>');
+	$($imgContainer).append($imgElement);
+	$($imgContainer).append($imgSpacing);
+	// For every image in listImages, copy the image element, change src and append to mainElement
+	for (var page = 1; page < listImages.length+1; ++page) {
+		// Copy basic element
+		var $newContainer = $imgContainer.clone();
+		// append page title
+		$newContainer.children('img').attr('src', listImages[page-1]);
+		console.log($newContainer[0]);
+		// append each new page to parent element
+		$mainElement.append($newContainer[0]);
+	}
+};
+
+/* function changeImage(listImages) {
 	//get page element into variable
 	var pageTemplate = $('.page')[0].cloneNode(true);
 	//remove page element
-	pageParent = $('.page')[0].parentElement;
+	var pageParent = $('.page')[0].parentElement;
 	$('.page')[0].remove();
 	pageParent.setAttribute("style", "background-color: #161616;");
 	for (var page = 1; page < listImages.length+1; ++page) {
@@ -36,12 +59,9 @@ function changeImage(listImages) {
 		pageParent.append(pageImage);
 	}
 }
-function printThis() {
-	console.log('Here now');
-}
 
 $(document).ready(function() {
 	getListImages(window.location.href, function(listImages) {
 		changeImage(listImages);
 	});
-});
+}); */

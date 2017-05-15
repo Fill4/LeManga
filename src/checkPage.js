@@ -2,8 +2,14 @@
 (function() {
 	"use strict";
 	chrome.runtime.sendMessage({action: "matchURL", url: window.location.href }, function(response) {
-		if(!response.isTrue) {
-			console.log('Page matches no patterns');
-		};
+		if(response.isTrue) {
+			$(document).ready(function() {
+				getListImages(window.location.href, function(listImages) {
+					changeImages(listImages);
+				});
+			});
+		}; //else {
+		//	console.log('Page matches no patterns');
+		//};
 	});
 })();
