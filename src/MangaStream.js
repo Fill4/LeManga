@@ -38,22 +38,28 @@ var MangaStream = {
 		// Clear main body element
 		var $mainElement = $('.row-fluid')[0];
 		$($mainElement).empty();
+		$($mainElement).addClass("ui segment");
 		$($mainElement).attr('style', 'background-color: #161616;');
 		// Create basic element for image
-		var $imgContainer = $('<div>', {"class": "ui fluid segment"});
+		var $imgContainer = $('<div>', {"class": "ui segment"});
 		var $imgElement = $('<img>', {"class": "ui fluid image"});
-		var $imgSpacing = $('<h3>');
-		$($imgContainer).append($imgElement);
-		$($imgContainer).append($imgSpacing);
+		var $imgSpacing = $('<h4>', {"class": "ui horizontal divider"});
+		//$($imgContainer).append($imgElement);
+		//$($imgContainer).append($imgSpacing);
 		// For every image in listImages, copy the image element, change src and append to mainElement
 		for (var page = 1; page < listImages.length+1; ++page) {
 			// Copy basic element
-			var $newContainer = $imgContainer.clone();
+			var $newImage = $imgElement.clone();
+			var $newSpacing = $imgSpacing.clone();
 			// append page title
-			$newContainer.children('img').attr('src', listImages[page-1]);
-			console.log($newContainer[0]);
+			//$newContainer.children('img').attr('src', listImages[page-1]);
+			$newImage.attr('src', listImages[page-1]);
+			//$newSpacing.text('Page ' + page);
+			//console.log($newContainer[0]);
 			// append each new page to parent element
-			$mainElement.append($newContainer[0]);
+			//$mainElement.append($newContainer[0]);
+			$mainElement.append($newImage[0]);
+			$mainElement.append($newSpacing[0]);
 		}
 	}
 };
