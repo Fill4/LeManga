@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 
 	"name": "Le Manga",
-	"description": "Get le mangas",
+	"description": "Get le Mangas",
 	"version": "0.1",
 	"icons" : {
 		"16" : "icons/icon1_16.png",

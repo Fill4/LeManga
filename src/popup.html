@@ -5,23 +5,22 @@
 		<title> Le Manga's Popup</title>
 
 		<link rel="stylesheet" type="text/css" href="styles/semantic/semantic.css">
-		<script src="jquery.js"></script>
-		<script src="styles/semantic/semantic.js"></script> 
+		<link rel="stylesheet" type="text/css" href="styles/mystyle.css">
+		<script src="libs/jquery-3.2.1.js"></script>
+		<script src="libs/pouchdb-6.3.4.js"></script>
+		<script src="styles/semantic/semantic.js"></script>
 		<script src="popup.js"></script>
 
 	</head>
 	<body>
-		<div id='title'>
-			<h3 class="ui header"> Le Manga </h3>
-			<span id='version'> 0.0.1 </span>
-
-			<div class="ui divider"></div>
-
-			<div class="ui message">
-				
-			</div>
+		<div id='header' class="ui container">
+			<h3 id='title' class="ui centered header"> Le Manga </h3>
+			<h4 id='version' class="ui centered header"> Version here</span>
 		</div>
-		<img id="image-result" hidden>
+		<div class="ui divider"></div>
+		<div id='mangalist' class='ui container'>
+			No Mangas to display
+		</div>
 	</body>
 </html>
 
