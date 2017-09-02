@@ -3,28 +3,30 @@ body {
     margin: 3px;
 }
 
-/*
 #header {
-    height: 35px;
+    height: 36px;
 }
 
 #title {
     display: inline-block;
     vertical-align: middle;
-    height: 35px;
+    height: 32px;
     margin: 0;
     padding: 0;
 }
 
 #title h3 {
+    height: 16px;
     margin: 0;
     padding: 0;
+    vertical-align: middle;
     display: inline-block;
+    margin-left: 2px;
 }
 
 #title h4 {
+    position: relative;
     margin: 0;
     padding: 0;
     display: inline-block;
 }
-*/
