@@ -4,24 +4,26 @@ body {
 }
 
 #header {
-    height: 36px;
+    height: 30px;
+    padding-bottom: 3px;
+}
+
+#header img {
+    vertical-align:middle;
 }
 
 #title {
+    height: 24px;
     display: inline-block;
     vertical-align: middle;
-    height: 32px;
-    margin: 0;
-    padding: 0;
 }
 
 #title h3 {
-    height: 16px;
     margin: 0;
     padding: 0;
-    vertical-align: middle;
     display: inline-block;
-    margin-left: 2px;
+    padding-left: 2px;
+    vertical-align: bottom;
 }
 
 #title h4 {
@@ -29,4 +31,10 @@ body {
     margin: 0;
     padding: 0;
     display: inline-block;
+    vertical-align: bottom;
+}
+
+#ui divider {
+    margin: 0;
+    padding: 0;
 }

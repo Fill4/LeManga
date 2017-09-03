@@ -2,7 +2,7 @@ $(function () {
     "use strict";
 
     // Get version from manifest and update html
-    $("#version").text(chrome.runtime.getManifest().version);
+    $("#name").append("v" + chrome.runtime.getManifest().version);
 
     var db = new PouchDB('MangaList');
     db.info().then(function (result) {
