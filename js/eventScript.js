@@ -23,6 +23,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			};
 		});
 		// Used to keep the messaging channel open until a response is sent
-		return true;
+		//return true;
 	};
 });
