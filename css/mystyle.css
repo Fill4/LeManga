@@ -1,6 +1,15 @@
 body {
+    width: 550px;
+    margin: 6px;
+    overflow: hidden;
+}
+
+body.small {
     width: 400px;
-    margin: 3px;
+}
+
+body.large {
+    width: 700px;
 }
 
 #header {
@@ -13,7 +22,7 @@ body {
 }
 
 #title {
-    height: 24px;
+    height: 26px;
     display: inline-block;
     vertical-align: middle;
 }

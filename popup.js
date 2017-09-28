@@ -4,6 +4,7 @@ $(function () {
     // Get version from manifest and update html
     $("#name").append("v" + chrome.runtime.getManifest().version);
 
+    // Open  database and check number of entries
     var db = new PouchDB('MangaList');
     db.info().then(function (result) {
         if(result.doc_count === 0) {
@@ -11,8 +12,6 @@ $(function () {
         }
     });
 
-    $("#window").html("<ul id='mangaList'><li>Item 1</li></ul>");
-    setTimeout(function() {
-        $("#mangaList").append("<li>Item 2</li>");
-    }, 2000);
+    
+    
 });
