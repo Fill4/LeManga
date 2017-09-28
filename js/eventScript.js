@@ -11,8 +11,10 @@ function checkURL(url, callback){
 // from that mirror into the current page
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	if (request.action == "matchURL") {
+		console.log("Got message from content script");
 		checkURL(request.url, function(mirrorMatch, mirrorName, mirrorScript) {
 			if (mirrorMatch) {
+				console.log("Url: " + request.url + " matched known pattern");
 				promises = []
 				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: mirrorScript}));
 				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: 'css/semantic/semantic.css'}));
