@@ -11,10 +11,10 @@ function checkURL(url, callback){
 // from that mirror into the current page
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	if (request.action == "matchURL") {
-		console.log("Got message from content script");
+		//console.log("Checking Url: " + request.url);
 		checkURL(request.url, function(mirrorMatch, mirrorName, mirrorScript) {
 			if (mirrorMatch) {
-				console.log("Url: " + request.url + " matched known pattern");
+				//console.log("Url: " + request.url + " matched known pattern");
 				promises = []
 				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: mirrorScript}));
 				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: 'css/semantic/semantic.css'}));
@@ -28,3 +28,4 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	// Used to keep the messaging channel open until a response is sent. Async response
 	return true;
 });
+

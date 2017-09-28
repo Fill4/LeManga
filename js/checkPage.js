@@ -3,10 +3,11 @@
 
 chrome.runtime.sendMessage({action: "matchURL", url: window.location.href }, function(response) {
 	if(response.mirrorMatch) {
-		console.log(response.mirrorName);
 		$(document).ready(function() {
 			var mirror = window[response.mirrorName];
-			console.log("Here");
+			if (typeof(mirror) === "undefined") {
+				setTimeout(function() {var mirror = window[response.mirrorName];}, 200);
+			}
 			mirror.getListImages(window.location.href, function(listImages) {
 				mirror.changeImages(listImages);
 			});
