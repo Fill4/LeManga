@@ -10,7 +10,11 @@
 		"128" : "images/icon1_128.png"
 	},
 	"background": {
-		"scripts": ["js/eventScript.js"],
+		"scripts": [
+			"js/background.js",
+			"jquery-3.2.1.js",
+			"js/libs/pouchdb-6.3.4.js"
+		],
 		"persistent": false
 	},
 	"browser_action": {
