@@ -19,7 +19,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: mirrorScript}));
 				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: 'css/semantic/semantic.css'}));
 				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: 'css/semantic/semantic.js'}));
-				Promise.all(promises).then(sendResponse({mirrorMatch: true, mirrorName: mirrorName}));
+				Promise.all(promises)
+					.then(sendResponse({mirrorMatch: true, mirrorName: mirrorName}))
+					.catch(function(e) {console.log("Catch: " + e)});
 			} else {
 				sendResponse({mirrorMatch: false, mirrorName: null});
 			};
@@ -29,3 +31,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	return true;
 });
 
+// Add all the code here for extension initialization
+// Setup options variables and default values
+// Setup database initialization and alarm updates with user defined intervals
+console.log("Initializing extension!");
