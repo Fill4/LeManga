@@ -64,6 +64,8 @@ var MangaStream = {
 	}
 };
 
+registerMirror(MangaStream);
+
 /* function changeImage(listImages) {
 	//get page element into variable
 	var pageTemplate = $('.page')[0].cloneNode(true);
