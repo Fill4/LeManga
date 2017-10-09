@@ -9,9 +9,8 @@
             "name": "Launch Chrome against localhost",
             "type": "chrome",
             "request": "launch",
-            "url": "http://readms.net/r/hajime_no_ippo/1192/4589/1",
-            "webRoot": "${workspaceRoot}",
-            "runtimeExecutable": "C:/Users/megas/AppData/Local/Chromium/Application/chrome.exe"
+            "file": "${workspaceRoot}/popup.html",
+            "webRoot": "${workspaceRoot}"
         }
     ]
 }
