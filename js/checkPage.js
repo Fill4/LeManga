@@ -7,13 +7,6 @@ function registerMirror(mirrorVar) {
 	mirrorObject = mirrorVar;
 };
 
-//function getSrc(url) {
-//	fetch(url)
-//	.then(response => response.text())
-//	.then(text => new DOMParser().parseFromString(text, 'text/html'))
-//	.then(doc => doc.querySelector("#manga-page").src)
-//}
-
 async function getSrc(url) {
 	let response = await fetch(url);
 	let text = await response.text();
@@ -25,11 +18,9 @@ chrome.runtime.sendMessage({action: "matchURL", url: window.location.href }, res
 	if(response.mirrorMatch) {
 		setTimeout(function() {
 			console.log(mirrorObject);
-			//document.addEventListener("DOMContentLoaded", function() {
 			mirrorObject.getListImageSrc(window.location.href, listImageSrc => {
 				mirrorObject.changeImages(listImageSrc);
 			});
 		}, 500);
-		//});
 	};
 });

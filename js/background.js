@@ -21,7 +21,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 				promises = []
 				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: mirrorScript}, () => console.log("Injected mirror " + mirrorName)));
 				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: "js/libs/jquery-3.2.1.js"}));
-				//promises.push(chrome.tabs.executeScript(sender.tab.id, {file: "css/semantic/semantic.js"}));
 				Promise.all(promises)
 					.then(function() {sendResponse({mirrorMatch: true, mirrorName: mirrorName});})
 					.catch(function(e) {console.log("Catch: " + e);});

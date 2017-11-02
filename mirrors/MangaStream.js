@@ -30,19 +30,20 @@ var MangaStream = {
 		var promises = [];
 		var urls = [];
 
-
+		// Add urls from all chapter pages to an array
 		for (var indexPage = 1; indexPage < numberPages+1; ++indexPage) {
 			var nextPageURL = chapterURL + indexPage;
 			urls.push(nextPageURL);
 		}
 
+		// Get promises for the DOM of all the pages and then resolve the promises by getting the images src
 		promises = urls.map(async url => getSrc(url));
 		Promise.all(promises).then(docs => {
 			var listImageSrc = docs.map(doc => doc.querySelector("#manga-page").src);
-			console.log(listImageSrc);
+			callback(listImageSrc);
 		});
 		// Added to stop program execution here
-		throw new Error("Stopping here");
+		//throw new Error("Stopping here");
 	},
 
 	changeImages: function (listImageSrc) {
@@ -57,38 +58,16 @@ var MangaStream = {
 		listImageSrc.forEach( imageSrc => {
 			var imgElement = document.createElement('img');
 			imgElement.src = imageSrc;
-			imgElement.style.margin = "1em";
-			imgList.appendChild(imgElement);
+			imgElement.style.display = "block";
+			imgElement.style.border = "1em";
+			imgElement.style.margin = "auto";
+			var divComponent = document.createElement('div');
+			divComponent.style.margin = '1em';
+			divComponent.appendChild(imgElement);
+			imgList.appendChild(divComponent);
 		});
 
 		mainElement.appendChild(fragment);
-
-		/*
-		$($mainElement).empty();
-		$($mainElement).addClass("ui segment");
-		$($mainElement).attr('style', 'background-color: #161616;');
-		// Create basic element for image
-		var $imgContainer = $('<div>', {"class": "ui segment"});
-		var $imgElement = $('<img>', {"class": "ui fluid image"});
-		var $imgSpacing = $('<h4>', {"class": "ui horizontal divider"});
-		//$($imgContainer).append($imgElement);
-		//$($imgContainer).append($imgSpacing);
-		// For every image in listImageSrc, copy the image element, change src and append to mainElement
-		for (var page = 1; page < listImageSrc.length+1; ++page) {
-			// Copy basic element
-			var $newImage = $imgElement.clone();
-			var $newSpacing = $imgSpacing.clone();
-			// append page title
-			//$newContainer.children('img').attr('src', listImageSrc[page-1]);
-			$newImage.attr('src', listImageSrc[page-1]);
-			//$newSpacing.text('Page ' + page);
-			//console.log($newContainer[0]);
-			// append each new page to parent element
-			//$mainElement.append($newContainer[0]);
-			$mainElement.append($newImage[0]);
-			$mainElement.append($newSpacing[0]);
-		}
-		*/
 	}
 };
 
