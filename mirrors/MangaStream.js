@@ -35,24 +35,21 @@ var MangaStream = {
 			var nextPageURL = chapterURL + indexPage;
 			urls.push(nextPageURL);
 		}
-
 		// Get promises for the DOM of all the pages and then resolve the promises by getting the images src
 		promises = urls.map(async url => getSrc(url));
 		Promise.all(promises).then(docs => {
 			var listImageSrc = docs.map(doc => doc.querySelector("#manga-page").src);
 			callback(listImageSrc);
 		});
-		// Added to stop program execution here
-		//throw new Error("Stopping here");
 	},
 
 	changeImages: function (listImageSrc) {
-		console.log('In changeImages');
-		// Clear main body element
+		// Clear main body element and change to dark color
 		var mainElement = document.querySelector(".row-fluid");
 		while (mainElement.firstChild) mainElement.removeChild(mainElement.firstChild);
 		mainElement.style.backgroundColor = "#161616";
 
+		//Create a fragment and add all images to frangment inside a div to fix margins
 		var fragment = document.createDocumentFragment();
 		var imgList = fragment.appendChild(document.createElement("ul"));
 		listImageSrc.forEach( imageSrc => {
@@ -66,7 +63,7 @@ var MangaStream = {
 			divComponent.appendChild(imgElement);
 			imgList.appendChild(divComponent);
 		});
-
+		// Add fragment to main element to destroy it and add its elements
 		mainElement.appendChild(fragment);
 	}
 };

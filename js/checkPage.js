@@ -17,10 +17,9 @@ async function getSrc(url) {
 chrome.runtime.sendMessage({action: "matchURL", url: window.location.href }, response => {
 	if(response.mirrorMatch) {
 		setTimeout(function() {
-			console.log(mirrorObject);
 			mirrorObject.getListImageSrc(window.location.href, listImageSrc => {
 				mirrorObject.changeImages(listImageSrc);
 			});
-		}, 500);
+		}, 200);
 	};
 });
