@@ -2,7 +2,7 @@
 // If so, returns the javascript file with that website implementation
 function checkUrl(url, callback) {
 	//var isTrue = url.match(/(mangastream|readms).(com|net)/g) !== null;
-	var mirrorMatch = url.match(/readms.net/g) !== null;
+	var mirrorMatch = url.match(/mangastream.com/g) !== null;
 	mirrorName = "MangaStream";
 	callback(mirrorMatch, mirrorName, "mirrors/MangaStream.js");
 }
@@ -19,9 +19,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		checkUrl(request.url, function(mirrorMatch, mirrorName, mirrorScript) {
 			if (mirrorMatch) {
 				promises = []
-				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: mirrorScript}));
-				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: "css/semantic/semantic.css"}));
-				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: "css/semantic/semantic.js"}));
+				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: mirrorScript}, () => console.log("Injected mirror " + mirrorName)));
+				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: "js/libs/jquery-3.2.1.js"}));
+				//promises.push(chrome.tabs.executeScript(sender.tab.id, {file: "css/semantic/semantic.js"}));
 				Promise.all(promises)
 					.then(function() {sendResponse({mirrorMatch: true, mirrorName: mirrorName});})
 					.catch(function(e) {console.log("Catch: " + e);});
