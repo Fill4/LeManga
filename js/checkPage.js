@@ -3,23 +3,14 @@
 
 var mirrorObject;
 
-function registerMirror(mirrorVar) {
-	mirrorObject = mirrorVar;
-};
-
-async function getSrc(url) {
-	let response = await fetch(url);
-	let text = await response.text();
-	let doc = await new DOMParser().parseFromString(text, 'text/html');
-	return doc;
-};
+//function registerMirror(mirrorVar) {
+//	mirrorObject = mirrorVar;
+//};
 
 chrome.runtime.sendMessage({action: "matchURL", url: window.location.href }, response => {
 	if(response.mirrorMatch) {
-		setTimeout(function() {
-			mirrorObject.getListImageSrc(window.location.href, listImageSrc => {
-				mirrorObject.changeImages(listImageSrc);
-			});
-		}, 200);
+		setTimeout(function () {
+			drawPage(mirrorObject);
+		}, 100);
 	};
 });

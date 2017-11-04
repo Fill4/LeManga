@@ -11,6 +11,10 @@ function initDBs() {
 	var db = new PouchDB('MangaList');
 }
 
+async function injectScripts(tabId, file) {
+	await chrome.tabs.executeScript(tabId, { file: file }, () => console.log("Injected " + file));
+}
+
 // Receives url from checkPage and if checkUrl returns true it injects the js file 
 // from that mirror into the current page
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -18,14 +22,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		//console.log("Checking Url: " + request.url);
 		checkUrl(request.url, function(mirrorMatch, mirrorName, mirrorScript) {
 			if (mirrorMatch) {
-				promises = []
-				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: mirrorScript}, () => console.log("Injected mirror " + mirrorName)));
-				promises.push(chrome.tabs.executeScript(sender.tab.id, {file: "js/libs/jquery-3.2.1.js"}));
-				Promise.all(promises)
-					.then(function() {sendResponse({mirrorMatch: true, mirrorName: mirrorName});})
-					.catch(function(e) {console.log("Catch: " + e);});
+				//injectScripts(sender.tab.id, mirrorScript).then(sendResponse({mirrorMatch: true}));
+				injectScripts(sender.tab.id, 'js/buildPage.js')
+				.then(injectScripts(sender.tab.id, mirrorScript))
+				.then(sendResponse({ mirrorMatch: true }));
 			} else {
-				sendResponse({mirrorMatch: false, mirrorName: null});
+				sendResponse({mirrorMatch: false});
 			};
 		});
 	};
