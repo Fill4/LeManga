@@ -22,7 +22,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		//console.log("Checking Url: " + request.url);
 		checkUrl(request.url, function(mirrorMatch, mirrorName, mirrorScript) {
 			if (mirrorMatch) {
-				//injectScripts(sender.tab.id, mirrorScript).then(sendResponse({mirrorMatch: true}));
 				injectScripts(sender.tab.id, 'js/buildPage.js')
 				.then(injectScripts(sender.tab.id, mirrorScript))
 				.then(sendResponse({ mirrorMatch: true }));
