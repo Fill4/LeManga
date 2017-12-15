@@ -54,35 +54,12 @@ var MangaStream = {
 		return listUrls;
 	},
 
-	getImages: function (listDocs) {
-		// Get promises for the DOM of all the pages and then resolve the promises by getting the images src
-		var listImages = listDocs.map(doc => doc.querySelector("#manga-page").src);
-		return listImages;
+	getImageFromDoc: function (doc) {
+		return doc.querySelector("#manga-page").src;
 	},
 
-	changeImages: function (listImageSrc) {
-		// Clear main body element and change to dark color
-		var mainElement = document.querySelector(".row-fluid");
-		//mainElement.parentElement.removeChild(document.querySelector(".msa"));
-		while (mainElement.firstChild) mainElement.removeChild(mainElement.firstChild);
-		mainElement.style.backgroundColor = "#161616";
-
-		//Create a fragment and add all images to frangment inside a div to fix margins
-		var fragment = document.createDocumentFragment();
-		var imgList = fragment.appendChild(document.createElement("ul"));
-		listImageSrc.forEach( imageSrc => {
-			var imgElement = document.createElement('img');
-			imgElement.src = imageSrc;
-			imgElement.style.display = "block";
-			imgElement.style.border = "1em";
-			imgElement.style.margin = "auto";
-			var divComponent = document.createElement('div');
-			divComponent.style.margin = '1em';
-			divComponent.appendChild(imgElement);
-			imgList.appendChild(divComponent);
-		});
-		// Add fragment to main element to destroy it and add its elements
-		mainElement.appendChild(fragment);
+	whereToDrawChapter: function () {
+		return document.querySelector(".row-fluid");
 	}
 };
 
