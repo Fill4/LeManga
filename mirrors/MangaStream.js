@@ -6,6 +6,10 @@ var MangaStream = {
 		return (url.match(/(mangastream|readms).(com|net)/g) !== null);
 	},
 
+	getInfo: function (url) {
+		return undefined;
+	},
+
 	getListMangas: function () {
 		return undefined;
 	},
@@ -14,7 +18,7 @@ var MangaStream = {
 		return undefined;
 	},
 
-	// Get list of all images in 
+	// Get list of all images in page
 	getListImageSrc: function (url, callback) {
 		var chapterURL = url.substring(0,url.lastIndexOf('/')+1);
 		var lastPageURL = document.querySelector('.btn-reader-page .dropdown-menu li:last-of-type a').href;
@@ -25,7 +29,7 @@ var MangaStream = {
 		for (var indexPage = 1; indexPage < numberPages+1; ++indexPage) {
 			var nextPageURL = chapterURL + indexPage;
 			urls.push(nextPageURL);
-		}
+		};
 		// Get promises for the DOM of all the pages and then resolve the promises by getting the images src
 		var promises = urls.map(async url => getSrc(url));
 		Promise.all(promises).then(docs => {
@@ -37,7 +41,7 @@ var MangaStream = {
 	changeImages: function (listImageSrc) {
 		// Clear main body element and change to dark color
 		var mainElement = document.querySelector(".row-fluid");
-		mainElement.parentElement.removeChild(document.querySelector(".msa"));
+		//mainElement.parentElement.removeChild(document.querySelector(".msa"));
 		while (mainElement.firstChild) mainElement.removeChild(mainElement.firstChild);
 		mainElement.style.backgroundColor = "#161616";
 

@@ -4,7 +4,7 @@
 chrome.runtime.sendMessage({action: "matchURL", url: window.location.href }, response => {
 	if(response.mirrorMatch) {
 		setTimeout(function () {
-			drawPage(mirrorObject);
+			handlePage();
 		}, 100);
 	};
 });

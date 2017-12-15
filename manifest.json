@@ -11,9 +11,9 @@
 	},
 	"background": {
 		"scripts": [
-			"js/background.js",
 			"js/libs/jquery-3.2.1.js",
-			"js/libs/pouchdb-6.3.4.js"
+			"js/libs/pouchdb-6.3.4.js",
+			"js/background.js"
 		],
 		"persistent": false
 	},
