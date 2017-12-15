@@ -11,18 +11,24 @@ async function getSrc(url) {
     return doc;
 }
 
-function drawManga() {
-    //var listUrls = await mirrorObject.getListUrls(window.location.href);
-    //var listImages = await mirrorObject(listUrls);
-    //var 
-    mirrorObject.getListImageSrc(window.location.href, listImageSrc => {
-        mirrorObject.changeImages(listImageSrc);
+async function drawManga() {
+    var listUrls = mirrorObject.getUrls(window.location.href);
+    var promises = await listUrls.map(async url => getSrc(url));
+    var listDocs;
+    await Promise.all(promises).then(docs => {
+        listDocs = docs;
     });
+    var listImages = mirrorObject.getImages(listDocs);
+    mirrorObject.changeImages(listImages);
+    
+    //mirrorObject.getListImageSrc(window.location.href, listImageSrc => {
+    //      mirrorObject.changeImages(listImageSrc);
+    //});
 }
 
 function handlePage() {
     info = mirrorObject.getInfo();
-    sendInfo(info);
+    //sendInfo(info);
     drawManga();
 }
 

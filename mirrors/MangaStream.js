@@ -7,7 +7,28 @@ var MangaStream = {
 	},
 
 	getInfo: function (url) {
-		return undefined;
+		var nameManga;
+		var nameChapter;
+		var urlManga;
+		var urlChapter;	
+		
+		nameManga = document.querySelector('.btn-default .hidden-sm').innerText;
+		nameChapter = document.querySelector('.btn-reader-chapter .dropdown-menu li a span').innerText;
+		urlManga = document.querySelector('.btn-reader-chapter .dropdown-menu li:last-child a').href
+		urlChapter = document.querySelector('.btn-reader-chapter .dropdown-menu li:first-child a').href
+
+		/*
+		console.log(" nameManga : " + nameManga + "\n" +
+					" nameChapter : " + nameChapter + "\n" +
+					" urlManga : " + urlManga + "\n" +
+					" urlChapter : " + urlChapter); 
+		*/
+
+		return {"nameManga" : nameManga,
+				"nameChapter" : nameChapter,
+				"urlManga" : urlManga,
+				"urlChapter" : urlChapter};
+		
 	},
 
 	getListMangas: function () {
@@ -19,23 +40,24 @@ var MangaStream = {
 	},
 
 	// Get list of all images in page
-	getListImageSrc: function (url, callback) {
+	getUrls: function (url) {
 		var chapterURL = url.substring(0,url.lastIndexOf('/')+1);
-		var lastPageURL = document.querySelector('.btn-reader-page .dropdown-menu li:last-of-type a').href;
+		var lastPageURL = document.querySelector('.btn-reader-page .dropdown-menu li:last-child a').href;
 		var numberPages = parseInt(lastPageURL.substring(lastPageURL.lastIndexOf('/')+1, lastPageURL.length));
-		var urls = [];
+		var listUrls = [];
 
 		// Add urls from all chapter pages to an array
 		for (var indexPage = 1; indexPage < numberPages+1; ++indexPage) {
 			var nextPageURL = chapterURL + indexPage;
-			urls.push(nextPageURL);
+			listUrls.push(nextPageURL);
 		};
+		return listUrls;
+	},
+
+	getImages: function (listDocs) {
 		// Get promises for the DOM of all the pages and then resolve the promises by getting the images src
-		var promises = urls.map(async url => getSrc(url));
-		Promise.all(promises).then(docs => {
-			var listImageSrc = docs.map(doc => doc.querySelector("#manga-page").src);
-			callback(listImageSrc);
-		});
+		var listImages = listDocs.map(doc => doc.querySelector("#manga-page").src);
+		return listImages;
 	},
 
 	changeImages: function (listImageSrc) {
