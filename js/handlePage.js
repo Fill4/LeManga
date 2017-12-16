@@ -48,10 +48,11 @@ function drawMangaChapter(listImages) {
 
 async function handlePage() {
     info = mirrorObject.getInfo();
-    //sendInfo(info);
-    console.log('Here');
-    var listImages = await getMangaChapter();
-    drawMangaChapter(listImages);
+    chrome.runtime.sendMessage({ action: "checkChapterInfo", info: info});
+    if (!mirrorObject.canShowFullChapter) {
+        var listImages = await getMangaChapter();
+        drawMangaChapter(listImages);
+    }
 }
 
 function registerMirror(mirrorVar) {

@@ -1,7 +1,7 @@
 "use strict";
 var MangaStream = {
 	mirrorName: "MangaStream",
-
+	canShowFullChapter: false,
 	isMe: function (url) {
 		return (url.match(/(mangastream|readms).(com|net)/g) !== null);
 	},
@@ -10,7 +10,7 @@ var MangaStream = {
 		var nameManga;
 		var nameChapter;
 		var urlManga;
-		var urlChapter;	
+		var urlChapter;
 		
 		nameManga = document.querySelector('.btn-default .hidden-sm').innerText;
 		nameChapter = document.querySelector('.btn-reader-chapter .dropdown-menu li a span').innerText;
@@ -23,12 +23,7 @@ var MangaStream = {
 					" urlManga : " + urlManga + "\n" +
 					" urlChapter : " + urlChapter); 
 		*/
-
-		return {"nameManga" : nameManga,
-				"nameChapter" : nameChapter,
-				"urlManga" : urlManga,
-				"urlChapter" : urlChapter};
-		
+		return {nameManga, nameChapter, urlManga, urlChapter};
 	},
 
 	getListMangas: function () {

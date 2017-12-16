@@ -11,8 +11,8 @@
 	},
 	"background": {
 		"scripts": [
-			"js/libs/jquery-3.2.1.js",
 			"js/libs/pouchdb-6.3.4.js",
+			"js/libs/pouchdb.find.js",
 			"js/background.js"
 		],
 		"persistent": false
@@ -24,7 +24,7 @@
 	"content_scripts": [
 		{
 			"matches": ["*://*/*"],
-			"js": ["js/libs/jquery-3.2.1.js", "js/checkPage.js"]
+			"js": ["js/checkPage.js"]
 		}
 	],
 	"permissions": [

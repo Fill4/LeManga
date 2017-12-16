@@ -4,7 +4,6 @@
 chrome.runtime.sendMessage({action: "checkURL", url: window.location.href }, response => {
 	if(response.mirrorMatch) {
 		setTimeout(function () {
-			console.log('Handling page');
 			handlePage();
 		}, 100);
 	};
