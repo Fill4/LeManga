@@ -18,7 +18,7 @@ async function getMangaList() {
 		selector: { nameManga: { $gte: null } },
 		sort: ['nameManga']
 	});
-	return docs;
+	return docs.docs;
 }
 
 async function initMangaList() {
@@ -26,7 +26,7 @@ async function initMangaList() {
 	if (docs.length === 0) {
 		console.log('Its empty!');
 	} else {
-		console.log(docs);
+		drawMangaList(docs);
 	};
 }
 
@@ -48,8 +48,13 @@ function drawMangaList(mangas) {
 	var fragment = document.createDocumentFragment();
 	var list = fragment.appendChild(document.createElement("ul"));
 	mangas.forEach(manga => {
-		
+		var item = document.createElement('a');
+		item.innerText = manga.nameManga;
+		item.href = manga.urlManga;
+		list.appendChild(item);
 	});
+	console.log(list);
+	return undefined;
 }
 
 
