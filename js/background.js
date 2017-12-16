@@ -1,3 +1,6 @@
+var mangaList;
+
+
 // Checks whether the url sent from checkPage matches a known pattern.
 // If so, returns the javascript file with that website implementation
 function checkUrl(url) {
@@ -5,10 +8,6 @@ function checkUrl(url) {
 	var mirrorName = "MangaStream";
 	var mirrorScript = "mirrors/MangaStream.js"
 	return {mirrorMatch, mirrorName, mirrorScript};
-}
-
-function initDBs() {
-	var db = new PouchDB('MangaList');
 }
 
 async function getMangaList() {
@@ -23,11 +22,7 @@ async function getMangaList() {
 
 async function initMangaList() {
 	docs = await getMangaList();
-	if (docs.length === 0) {
-		console.log('Its empty!');
-	} else {
-		drawMangaList(docs);
-	};
+	mangaList = docs;
 }
 
 async function updateMangaList(info) {
@@ -35,26 +30,9 @@ async function updateMangaList(info) {
 	var result = await db.find({
 		selector: {nameManga: info.nameManga} 
 	});
-	//console.log(result);
 	if (result.docs.length === 0) {
 		await db.post({nameManga: info.nameManga, urlManga: info.urlManga});
 	};
-	var result = await db.find({
-		selector: { nameManga: info.nameManga }
-	});
-}
-
-function drawMangaList(mangas) {
-	var fragment = document.createDocumentFragment();
-	var list = fragment.appendChild(document.createElement("ul"));
-	mangas.forEach(manga => {
-		var item = document.createElement('a');
-		item.innerText = manga.nameManga;
-		item.href = manga.urlManga;
-		list.appendChild(item);
-	});
-	console.log(list);
-	return undefined;
 }
 
 
