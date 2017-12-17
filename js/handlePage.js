@@ -46,6 +46,8 @@ function drawMangaChapter(listImages) {
     mainElement.appendChild(fragment);
 }
 
+// If checkPage matches known website, this function is called to handle all the 
+// methods in the matched page
 async function handlePage() {
     info = mirrorObject.getInfo();
     chrome.runtime.sendMessage({ action: "checkChapterInfo", info: info});

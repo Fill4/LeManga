@@ -10,7 +10,7 @@ function checkUrl(url) {
 	return {mirrorMatch, mirrorName, mirrorScript};
 }
 
-async function getMangaList() {
+async function getMangaDB() {
 	var db = new PouchDB('MangaList');
 	await db.createIndex({ index: { fields: ['nameManga'] } });
 	var docs = await db.find({
@@ -20,22 +20,34 @@ async function getMangaList() {
 	return docs.docs;
 }
 
-async function initMangaList() {
-	docs = await getMangaList();
+// Checks if manga from matched webpage is in the DB or not
+async function checkMangaInDB(info) {
+	var db = new PouchDB('MangaList');
+	var result = await db.find({
+		selector: {nameManga: info.nameManga}
+	});
+	if (result.docs.length === 0) {
+		return false;
+	};
+	return true;
+}
+
+async function addMangaToDB(info) {
+	await db.post({ nameManga: info.nameManga, urlManga: info.urlManga });
+}
+
+async function updateMangaList() {
+	docs = await getMangaDB();
 	mangaList = docs;
 }
 
-async function updateMangaList(info) {
-	var db = new PouchDB('MangaList');
-	var result = await db.find({
-		selector: {nameManga: info.nameManga} 
-	});
-	if (result.docs.length === 0) {
-		await db.post({nameManga: info.nameManga, urlManga: info.urlManga});
+async function checkMangaInfo(info) {
+	found = await checkMangaInDB(info);
+	if (!found)	{
+		await addMangaToDB(info);
+		updateMangaList();
 	};
 }
-
-
 
 
 // Simple function to simplify function injection
@@ -62,7 +74,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	// Info is then used to update the extension manga list
 	if (request.action == "checkChapterInfo") {
 		//console.log(request.info);
-		updateMangaList(request.info)
+		checkMangaInfo(request.info);
 	};
 	// Used to keep the messaging channel open until a response is sent. Async response
 	return true;
@@ -73,5 +85,5 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 // Setup database initialization and alarm updates with user defined intervals
 console.log("Starting extension!");
 
-initMangaList();
+updateMangaList();
 //updateMangaList();
