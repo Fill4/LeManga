@@ -7,6 +7,8 @@ function drawMangaList(mangas) {
         var a = document.createElement('a');
 		a.innerText = manga.nameManga;
         a.href = manga.urlManga;
+        a.onclick = function() {chrome.tabs.create({url: a.href});}
+        console.log(a);
         var li = document.createElement('li')
         li.appendChild(a);
         list.appendChild(li);
